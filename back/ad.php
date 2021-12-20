@@ -1,6 +1,6 @@
 <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
     <p class="t cent botli"><?=$DB->title;?></p>
-    <form method="post"  action="api/edit_title.php">
+    <form method="post"  action="api/edit_ad.php">
         <table width="100%">
             <tbody>
                 <tr class="yel">
@@ -17,18 +17,17 @@
                 ?>
                 <tr>
 
-                    <td width="23%">
+                    <td>
                         <input type="text" name="text[]" value="<?=$row['text'];?>">
                     </td>
-                    <td width="7%">
+                    <td>
                         <input type="checkbox" name="sh[]" value="<?=$row['id'];?>" <?=$checked;?>>
                     </td>
-                    <td width="7%">
+                    <td>
                         <input type="checkbox" name="del[]" value="<?=$row['id'];?>">
 
+                        <input type="hidden" name="id[]" value="<?=$row['id'];?>">
                     </td>
-
-                    <input type="hidden" name="id[]" value="<?=$row['id'];?>">
 
                 </tr>
                 <?php
