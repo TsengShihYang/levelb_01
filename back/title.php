@@ -46,7 +46,7 @@
                 <tr>
                     <td width="200px">
                         <input type="button"
-                            onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;modal/title.php&#39;)" 
+                            onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;modal/<?=$DB->table;?>.php?table=<?=$DB->table;?>&#39;)" 
                               value="<?=$DB->button;?>">
                     </td>
                     <td class="cent">
