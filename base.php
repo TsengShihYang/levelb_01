@@ -207,9 +207,6 @@ $Menu=new DB('menu');
 $tt=$_GET['do']??'';
 
 switch($tt){
-    case "title":
-        $DB=$Title;
-    break;
     case "ad":
         $DB=$Ad;
     break;
@@ -235,7 +232,8 @@ switch($tt){
         $DB=$Menu;
     break;
     default:
-    $DB=$Title;
+        $DB=$Title;
+    break;
 }
 /* $total=$Total->find(1);
 
