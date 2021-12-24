@@ -10,7 +10,13 @@
                     <td></td>
                 </tr>
                 <?php
-                $rows=$DB->all();
+                $all=$DB->math('count','*');
+                $div=3;
+                $pages=ceil($all/$div);
+                $now=$_GET['p']??1;
+                $start=($now-1)*$div;
+                
+                $rows=$DB->all(" limit $start,$div");
                 foreach($rows as $row){
                     $checked=($row['sh']==1)?'checked':'';
                 ?>
@@ -28,7 +34,7 @@
                     <td>
                     <input type="hidden" name="id[]" value="<?=$row['id'];?>">
                     <input type="button"
-                            onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;modal/upload_<?=$DB->table;?>.php?id=<?=$row['id'];?>&#39;)" 
+                            onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;modal/upload.php?do=<?=$DB->table;?>&id=<?=$row['id'];?>&#39;)" 
                               value="更換圖片">
                     </td>
                 </tr>
@@ -37,6 +43,27 @@
                 ?>
             </tbody>
         </table>
+        <div class="cent">
+        <?php
+            if(($now-1)>0){
+                $p=$now-1;
+                echo "<a href='?do={$DB->table}&p=$p'> &lt; </a>";   
+            }
+            for($i=1;$i<=$pages;$i++){
+            if($i==$now){
+                $fontsize="24px";
+            }else{
+                $fontsize="16px";
+            }
+             echo "<a href='?do={$DB->table}&p=$i' style='font-size:$fontsize'> $i </a>";
+            }
+
+            if(($now+1)<=$pages){
+                $p=$now+1;
+                echo "<a href='?do={$DB->table}&p=$p'> &gt; </a>";   
+            }
+        ?>
+        </div>
         <table style="margin-top:40px; width:70%;">
             <tbody>
                 <tr>

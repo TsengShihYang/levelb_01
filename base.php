@@ -12,6 +12,7 @@ class DB{
     public $button;
     public $header;
     public $append;
+    public $upload;
 
     public function __construct($table){
         $this->table=$table;
@@ -25,6 +26,8 @@ class DB{
                 $this->title="網站標題管理";
                 $this->button="新增網站標題圖片";
                 $this->header="網站標題";
+                $this->append="替代文字";
+                $this->upload="網站標題圖片";
             break;
             case "ad";
             $this->title="動態文字廣告管理";
@@ -35,11 +38,13 @@ class DB{
             $this->title="動畫圖片管理";
             $this->button="新增動畫圖片";
             $this->header="動畫圖片";
+            $this->upload="動畫圖片";
             break;
             case "image";
             $this->title="校園映像資料管理";
             $this->button="新增校園映像圖片";
             $this->header="校園映像資料圖片";
+            $this->upload="校園映像圖片";
             break;
             case "total";
             $this->title="進站總人數管理";
@@ -95,17 +100,18 @@ class DB{
                     $tmp[]="`$key`='$value'";
                 }
 
-                $sql .=" WHERE ".implode(" AND ".$arg[0])." ".$arg[1];
+                $sql .=" WHERE ".implode(" AND ",$tmp)." ".$arg[1];
 
             break;
             case 1:
                 if(is_array($arg[0])){
+                    
                     foreach($arg[0] as $key => $value){
                         $tmp[]="`$key`='$value'";
                     }
-                    $sql .= " WHERE ".implode(" AND ".$arg[0]);
+                    $sql .= " WHERE ".implode(" AND ",$tmp);
                 }else{
-                    $sql .= $arg[1];
+                    $sql .= $arg[0];
                     
                 }
             break;
@@ -122,7 +128,7 @@ class DB{
                     $tmp[]="`$key`='$value'";
                 }
 
-                $sql .=" WHERE ".implode(" AND ".$arg[0])." ".$arg[1];
+                $sql .=" WHERE ".implode(" AND ",$tmp)." ".$arg[1];
 
             break;
             case 1:
@@ -130,9 +136,9 @@ class DB{
                     foreach($arg[0] as $key => $value){
                         $tmp[]="`$key`='$value'";
                     }
-                    $sql .= " WHERE ".implode(" AND ".$arg[0]);
+                    $sql .= " WHERE ".implode(" AND ",$tmp);
                 }else{
-                    $sql .= $arg[1];
+                    $sql .= $arg[0];
                     
                 }
             break;
@@ -157,7 +163,7 @@ class DB{
                                      VALUES('".implode("','",$array)."')";
         }
 
-        echo $sql;
+       // echo $sql;
         return $this->pdo->exec($sql);
     }
 

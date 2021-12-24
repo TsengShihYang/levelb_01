@@ -1,6 +1,6 @@
 <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
     <p class="t cent botli"><?=$DB->title;?></p>
-    <form method="post"  action="api/edit_ad.php">
+    <form method="post"  action="api/edit.php?do=<?=$DB->table;?>">
         <table width="100%">
             <tbody>
                 <tr class="yel">
@@ -14,7 +14,7 @@
 
                 </tr>
                 <?php
-                $rows=$DB->all();
+                $rows=$DB->all(['parent'=>0]);
                 foreach($rows as $row){
                     $checked=($row['sh']==1)?'checked':'';
                 ?>
@@ -26,7 +26,10 @@
                     <td>
                         <input type="text" name="href[]" value="<?=$row['href'];?>">
                     </td>
-                    <td></td>
+                    <td>
+                        <?=$DB->math('count','*',['parent'=>$row['id']]);?>
+
+                    </td>
                     <td>
                         <input type="checkbox" name="sh[]" value="<?=$row['id'];?>" <?=$checked;?>>
                     </td>
@@ -37,7 +40,7 @@
                     </td>
                     <td>
                     <input type="button"
-                            onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;modal/upload_<?=$DB->table;?>.php?id=<?=$row['id'];?>&#39;)" 
+                            onclick="op(&#39;#cover&#39;,&#39;#cvr&#39;,&#39;modal/submenu.php?id=<?=$row['id'];?>&#39;)" 
                               value="編輯次選單">
                     </td>
 
